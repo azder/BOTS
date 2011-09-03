@@ -1,3 +1,12 @@
+/**
+ * The source code here is provided  "AS IS" to anyone under the LGPLv3 licence.
+ * (GNU LESSER GENERAL PUBLIC LICENSE, version 3, 29 June 2007)
+ * http://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ * @author azder ( Goran Peoski ), mail: azhder (at) gmail (dot) com
+ */
+
+/*
 // JSLint is complaining if theese are not defined
 var QUnit = QUnit;
 var describe = describe;
@@ -10,6 +19,7 @@ var given = given;
 var equal = equal;
 
 var ASSERT = ASSERT;
+*/
 
 QUnit.specify.extendAssertions({
 

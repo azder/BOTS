@@ -1,10 +1,25 @@
-// defined if a browser
-var window = window;
-// defined if CommonJS
-var exports = exports;
-// defined if included multiple times
-var ASSERTS = ASSERTS;
+/**
+ * The source code here is provided  "AS IS" to anyone under the LGPLv3 licence.
+ * (GNU LESSER GENERAL PUBLIC LICENSE, version 3, 29 June 2007)
+ * http://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ * @author azder ( Goran Peoski ), mail: azhder (at) gmail (dot) com
+ */
 
+// Standard globals definitions that make JSLint happy
+var GLOBAL = this;
+var CONTEXT = {
+	// defined if a browser
+	window : this.window,
+	// defined if CommonJS
+	exports : this.exports,
+	// defined if included multiple times
+	ASSERT : this.ASSERT
+};
+
+/**
+ * The ASSERT framework module
+ */
 (function(ASSERT, GLOBAL) {
 
 	// use strict javascript
@@ -167,4 +182,4 @@ var ASSERTS = ASSERTS;
 	// return the module to outer scope
 	return ASSERT;
 
-})(ASSERTS, window || exports);
+})(CONTEXT.ASSERT, CONTEXT.window || CONTEXT.exports);

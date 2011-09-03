@@ -1,12 +1,24 @@
+/**
+ * The source code here is provided  "AS IS" to anyone under the LGPLv3 licence.
+ * (GNU LESSER GENERAL PUBLIC LICENSE, version 3, 29 June 2007)
+ * http://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ * @author azder ( Goran Peoski ), mail: azhder (at) gmail (dot) com
+ */
+
+
 // Standard globals definitions that make JSLint happy
-// defined if a browser
-var window = window;
-// defined if CommonJS
-var exports = exports;
-// defined if assert.js is included beforehand
-var ASSERT = ASSERT;
-// defined if included multiple times
-var BOTS = BOTS;
+var GLOBAL = this;
+var CONTEXT = {
+	// defined if a browser
+	window : this.window,
+	// defined if CommonJS
+	exports : this.exports,
+	// defined if assert.js is included beforehand
+	ASSERT : this.ASSERT,
+	// defined if included multiple times
+	BOTS : this.BOTS
+};
 
 /**
  * The BOTS framework module
@@ -53,7 +65,7 @@ var BOTS = BOTS;
 	 * @param name
 	 */
 	var _get = function(context, name) {
-		
+
 		ASSERT.exists(context, 'param context @ _get()');
 		name = '' + ASSERT.exists(name, 'param name @ _get()');
 
@@ -67,14 +79,12 @@ var BOTS = BOTS;
 	 * Function for creating full context getters
 	 */
 	var _read = function(context) {
-		
 		context = ASSERT.exists(context, 'param context @ _read()');
 
 		return function(name) {
 			name = '' + ASSERT.exists(name, 'param name @ _read()');
 			return context[name];
 		};
-		
 	};
 	// _get
 
@@ -197,7 +207,7 @@ var BOTS = BOTS;
 	// make the constructor functions accessible from the framework
 	BOTS.create.bot = Bot;
 	BOTS.create.world = World;
-	
+
 	/**
 	 * BOTS.constant - the method for accessing module constants
 	 */
@@ -206,4 +216,4 @@ var BOTS = BOTS;
 	// return the BOTS module to the global or container
 	return BOTS;
 
-})(BOTS, window || exports, ASSERT);
+})(CONTEXT.BOTS, CONTEXT.window || CONTEXT.exports, CONTEXT.ASSERT);
