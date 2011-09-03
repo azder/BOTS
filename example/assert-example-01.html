@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<title>ASSERT test 01</title>
+		<link href="style/main.css" rel="StyleSheet" type="text/css" />
+	</head>
+	<body>
+		<div id="log"></div>
+		<!--<script src="script/jquery-1.6.2.min.js" ></script> -->
+		<script src="script/jquery-1.6.2.js" ></script>
+		<script src="script/assert.js" ></script>
+		<script src="script/bots.js" ></script>
+		<script type="text/javascript" >
+			// to stop JSLint complaining
+			var console = console;
+			var ASSERT = ASSERT;
+			var jQuery = jQuery;
+
+			var $jq162 = jQuery.noConflict();
+			// on load
+			$jq162(function($) {
+
+				var $log = $('#log');
+
+				var test = function(fn) {
+					try {
+						fn.call(this);
+					} catch(e) {
+						$('<div>' + e.name + ' : ' + e.message + "</div>").appendTo($log);
+						console.log(e);
+					} // try
+				};
+				// test
+
+				test(function() {
+					ASSERT.exists(null, 'Assert: exists(null)');
+				});
+				
+				test(function() {
+					ASSERT.lte(2, 3, 'Assert: lte(2,3)');
+				});
+				
+			});
+
+		</script>
+	</body>
+</html>

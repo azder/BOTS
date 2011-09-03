@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<title>ASSERT.is example 02</title>
+		<link href="../style/is.css" rel="StyleSheet" type="text/css" />
+	</head>
+	<body>
+		<table summary="" >
+			<thead>
+				<tr>
+					<th>object</th>
+					<th>ASSERT.is(object)</th>
+					<th>Object.toString.call(object)</th>
+					<th>typeof object</th>
+					<th>object.prototype</th>
+					<th>object.prototype.constructor</th>
+				</tr>
+			</thead>
+			<tbody id="is" ></tbody>
+		</table>
+		<script type="text/javascript" src="../script/jquery-1.6.2.min.js" ></script>
+		<script type="text/javascript"  src="../script/assert.js" ></script>
+		<script type="text/javascript"  src="../script/bots.js" ></script>
+		<script type="text/javascript" >
+			// to stop JSLint complaining
+			var window = window;
+			var console = console;
+			var BOTS = BOTS;
+			var ASSERT = ASSERT;
+			var jQuery = jQuery;
+			var $jq162 = jQuery.noConflict();
+			// on load
+			$jq162(function($) {
+
+				try {
+
+					var is = ASSERT.is;
+
+					function forEach(object, fn) {
+						if(null == object) {
+							return object;
+						}
+						for(var name in object) {
+							if(Object.hasOwnProperty.call(object, name)) {
+								if(false === fn.call(object, object[name], name)) {
+									return object;
+								}
+							} // if
+						}// for
+						return object;
+					};
+
+					function toString(object) {
+						return Object.prototype.toString.call(object);
+						//.slice(8, -1);
+					}
+
+					// function is(object) {
+					// if(null === object) {
+					// return 'Null';
+					// }
+					// if('undefined' === typeof object) {
+					// return 'Undefined';
+					// }
+					// if(window === object) {
+					// return 'Window';
+					// }
+					// return Object.prototype.toString.call(object).slice(8, -1);
+					// }
+
+					var objects = {
+						'0' : 0,
+						'new Number' : new Number,
+						'NaN' : NaN,
+						'Infinity' : Infinity,
+						'null' : null,
+						'undefined' : undefined,
+						'""' : "",
+						'new String' : new String,
+						'{}' : {},
+						'new Object' : new Object,
+						'[]' : [],
+						'new Array' : new Array,
+						'/./' : /./,
+						'new RegExp' : new RegExp,
+						'function(){}' : function() {
+						},
+						'new Function' : new Function,
+						'new Date' : new Date,
+						'new Error': new Error,
+						'arguments': arguments,
+						'window' : window,
+						'document' : document,
+						'alert' : alert,
+						'jQuery' : jQuery,
+						'jQuery()' : jQuery(),
+						'ASSERT' : ASSERT
+					};
+
+					var $is = $('tbody#is');
+					forEach(objects, function(object, name) {
+						var $tr = $('<tr class="' + is(object) + '"></tr>').appendTo($is);
+						$tr.append('<td>' + name + '</td>');
+						$tr.append('<td>' + is(object) + '</td>');
+						$tr.append('<td>' + toString(object) + '</td>');
+						$tr.append('<td>' + typeof object + '</td>');
+						$tr.append('<td>' + (null != object ? object.prototype : 'N/A') + '</td>');
+						$tr.append('<td>' + (null != object && null != object.prototype ? object.prototype.constructor : 'N/A') + '</td>');
+					});
+					// forEach
+				} catch(e) {
+
+					console.log('error in script', e.name, e.message, e.fileName, e.lineNumber);
+
+				} // try-catch
+			});
+
+		</script>
+	</body>
+</html>

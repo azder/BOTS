@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>ASSERT QUnit 02</title>
+		<link rel="stylesheet" href="../style/qunit.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../style/qunit-custom.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="../script/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript" src="../script/qunit.js"></script>
+		<script type="text/javascript" src="../script/assert.js"></script>
+		<script type="text/javascript">
+			jQuery(function($) {
+
+				var $tbody = $('#console tbody').first();
+				var $tfoot = $('#console tfoot').first();
+				var a = ASSERT;
+
+				QUnit.log = function(result, message) {
+					//$tbody.append('<tr><td>' + result + '</td><td>' + message + '</td></tr>');
+				};
+
+				QUnit.done = function(failures, total) {
+					//$tfoot.append('<tr><td>' + failures + '</td><td>' + total + '</td></tr>');
+
+					$('#qunit-tests > li > ol').show();
+				};
+				module("ASSERT Unit Test");
+
+				test('ASSERT.is()', function() {
+					equals('Null', a.is(null), 'is(null)');
+					equals('Undefined', a.is(undefined), 'is(undefined)');
+					equals('Object', a.is(new Object), 'is(new Object)');
+					equals('Object', a.is({}), 'is({})');
+					equals('Function', a.is(function() {
+					}), 'is(function(){})');
+					equals('Function', a.is(new Function), 'is(new Function)');
+					equals('RegExp', a.is(/./), 'is(/./)');
+
+				});
+				test('ASSERT.expect()', function() {
+					var error = function(fn) {
+						try {
+							fn.call();
+						} catch(e) {
+							return e;
+						}
+					};
+					var value = function(fn) {
+						try {
+							return fn.call();
+						} catch(e) {
+							
+						}
+					};
+					var assertError = new a.AssertError("The object doesn't exist. ");
+					// exists(null)
+					same(assertError, error(function() {
+						a.exists(null);
+					}), 'ASSERT.exists(null) throws AssertError');
+					equals(null, value(function() {
+						a.exists(null);
+					}), 'ASSERT.exists(null)');
+					same(assertError, error(function() {
+						a.exists(undefined);
+					}), 'ASSERT.exists(undefined) throws AssertError');
+				});
+			});
+			// jQuery()
+		</script>
+	</head>
+	<body>
+		<h1 id="qunit-header">QUnit example</h1>
+		<h2 id="qunit-banner"></h2>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<table id="console">
+			<thead>
+				<tr>
+					<th>Result</th>
+					<th>Message</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+			<tfoot>
+				<tr>
+					<th>failures</th>
+					<th>total</th>
+				</tr>
+			</tfoot>
+		</table>
+	</body>
+</html>

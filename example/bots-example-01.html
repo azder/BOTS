@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8" />
+		<title>BOTS example 01</title>
+		<link href="style/main.css" rel="StyleSheet" type="text/css" />
+	</head>
+	<body>
+		<!--<script src="script/jquery-1.6.2.min.js" ></script> -->
+		<script src="../script/jquery-1.6.2.js" ></script>
+		<script src="../script/assert.js" ></script>
+		<script src="../script/bots.js" ></script>
+		<script type="text/javascript">
+			// to stop JSLint complaining
+			var console = console;
+			var BOTS = BOTS;
+			var ASSERT = ASSERT;
+			var jQuery = jQuery;
+
+			try {
+
+				console.log('test of console', BOTS, ASSERT, jQuery);
+
+				var world1d = BOTS.create.world({
+					dimensions : 1,
+					limits : [10],
+					init : function() {
+						console.log('init called', this);
+					}
+				});
+				
+				console.log(BOTS.constant('MIN_DIMENSIONS'), '< ' + world1d.dimensions() + ' (world1d.dimensions()) <=', BOTS.constant('MAX_DIMENSIONS'));
+
+				var bot1 = BOTS.create.bot({
+					world : world1d
+				});
+
+				//console.log('bot1.world()', bot1.world());
+
+				console.log('world1d.limits(): ', world1d === world1d.limits([1]), world1d.limits([1]).limits());
+
+			} catch(e) {
+				console.error(e.name + ':', e.message);
+				//console.log(e.fileName, e.lineNumber);
+				console.log(e.stack);
+				// console.log(e);
+			}
+			// finally {
+			// }// try-catch-finally
+		</script>
+	</body>
+</html>

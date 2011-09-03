@@ -1,0 +1,29 @@
+table {
+	border: 1px gray solid;
+}
+
+th {
+	font-size: 90%;
+}
+
+tr.Function {
+	background-color: #ECECFF;
+}
+tr.Null, tr.Undefined {
+	background-color: #FFEAEA;
+}
+tr.Number {
+	background-color: #EFFFEF;
+}
+tr.String {
+	background-color: #FFFFCF;
+}
+tr.Array {
+	background-color: #E3FFC3;
+}
+tr.RegExp {
+	background-color: #FFEFC3;
+}
+tr.Object {
+	background-color: #E3E3E3;
+}
